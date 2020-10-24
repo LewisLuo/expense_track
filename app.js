@@ -7,12 +7,16 @@ const port = 3000
 const exphbs = require('express-handlebars')
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
+app.use(express.static('public'))
 
 // Including middlewares
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+
+require('./config/mongoose')
+
 
 // Router setting
 const routes = require('./routes')

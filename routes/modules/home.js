@@ -1,11 +1,31 @@
 const express = require('express')
 const router = express.Router()
 
-const Tracker = require('../../models/record')
+const Record = require('../../models/record')
+const Category = require('../../models/category')
 
-//Home page
+// Home page
 router.get('/', (req, res) => {
-  res.send('this is home page')
+  Record.find()
+    .lean()
+    .then((records) => {
+      Category.find()
+        .lean()
+        .then((categories) => {
+          let totalAmount = 0
+          for (let record of records) {
+            totalAmount += record.amount
+          }
+          res.render('index', { records, categories, totalAmount })
+        })
+    })
+    .catch(error => { console.log('Mongoose error: home page(records)') })
+
+})
+
+// Add new record
+router.get('/new', (req, res) => {
+  res.render('new')
 })
 
 module.exports = router

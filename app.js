@@ -17,7 +17,6 @@ app.use(methodOverride('_method'))
 
 require('./config/mongoose')
 
-
 // Router setting
 const routes = require('./routes')
 app.use(routes)

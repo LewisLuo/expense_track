@@ -26,8 +26,10 @@
           </div>
         </div>
         <div class="col-2">
-          <a href="/" aria-pressed="true">修改</a>
-          <a href="/" aria-pressed="true">刪除</a>
+          <a href="/records/{{this._id}}/edit" aria-pressed="true">修改</a>
+          <form action="/records/{{this._id}}?_method=DELETE" method="post">
+            <button type="submit" class="btn btn-primary">刪除</button>
+          </form>
         </div>
       </div>
     </li>

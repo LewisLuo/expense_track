@@ -1,1 +1,38 @@
-this is edit page
+<div class="container mt-5" style="width:720px">
+  <form action="/records/{{record._id}}?_method=PUT" method="POST">
+    <div class="row">
+      <div class="col">*必填欄位</div>
+      <div class="col">請輸入你的支出</div>
+    </div>
+    <div class="row">
+      <div class="col">名稱* :</div>
+      <div class="col">
+        <input type="text" name="name" value="{{record.name}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">日期* :</div>
+      <div class="col">
+        <input type="date" name="date" value="{{record.date}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">類別* :</div>
+      <div class="col">
+        <select name="category">
+          <option value="">請選擇類別</option>
+          {{#each categories}}
+          <option>{{this.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">金額* :</div>
+      <div class="col">
+        <input type="text" name="amount" value="{{record.amount}}">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">修改</button>
+  </form>
+</div>

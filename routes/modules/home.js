@@ -20,12 +20,7 @@ router.get('/', (req, res) => {
         })
     })
     .catch(error => { console.log('Mongoose error: home page(records)') })
-
 })
 
-// Add new record
-router.get('/new', (req, res) => {
-  res.render('new')
-})
 
 module.exports = router

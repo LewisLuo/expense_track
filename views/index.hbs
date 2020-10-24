@@ -1,16 +1,11 @@
-<div class="container">
+<div class="container mt-5" style="width:720px">
   <!-- Category Dropdown -->
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">
-      類別
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-      {{#each categories}}
-      <button class="dropdown-item" type="button">{{this.name}}</button>
-      {{/each}}
-    </div>
-  </div>
+  <select name="category" style="width:720px">
+    <option>顯示全部</option>
+    {{#each categories}}
+    <option>{{this.name}}</option>
+    {{/each}}
+  </select>
 
   <div class="amount">
     <h1>總金額: {{totalAmount}}</h1>
@@ -20,20 +15,25 @@
     <!-- Render Records -->
     {{#each records}}
     <li class="list-group-item">
-      <div class="row">
-        <div class="col-auto mr-auto">
-          <h5>{{this.name}}</h5>
-          <span>{{this.date}}</span>
+      <div class="row d-flex">
+        <div class="col-4 mr-auto d-flex flex-row justify-content-between">
+          <div class="d-flex flex-column">
+            <h5>{{this.name}}</h5>
+            <span>{{this.date}}</span>
+          </div>
+          <div>
+            <span class="amount">{{this.amount}}</span>
+          </div>
         </div>
-        <div class="col-auto">
-          <a href="/" class="btn btn-primary btn-lg" role="button" aria-pressed="true">修改</a>
-          <a href="/" class="btn btn-primary btn-lg" role="button" aria-pressed="true">刪除</a>
+        <div class="col-2">
+          <a href="/" aria-pressed="true">修改</a>
+          <a href="/" aria-pressed="true">刪除</a>
         </div>
       </div>
     </li>
     {{/each}}
   </ul>
 
-  <a href="/new" class="btn btn-primary btn-lg" role="button" aria-pressed="true">新增支出</a>
+  <a href="/records/new" class="btn btn-primary btn-lg" role="button" aria-pressed="true">新增支出</a>
 
 </div>

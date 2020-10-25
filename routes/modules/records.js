@@ -11,13 +11,37 @@ router.get('/new', (req, res) => {
     .then((categories) => {
       res.render('new', { categories })
     })
-    .catch(error => console.log('Mongoose error: add page(category)'))
+    .catch(error => console.log('Mongoose error: showing categories(adding page)'))
 })
 
 router.post('/', (req, res) => {
   return Record.create(req.body)
     .then(() => res.redirect('/'))
     .catch(error => console.log('Mongoose error: creating record'))
+})
+
+//filter records
+router.get('/filter', (req, res) => {
+  const filter = req.query.category
+  if (filter === '顯示全部') {
+    res.redirect('/')
+  } else {
+    Record.find({ category: [filter] })
+      .lean()
+      .then((records) => {
+        Category.find()
+          .lean()
+          .then((categories) => {
+            let totalAmount = 0
+            for (let record of records) {
+              totalAmount += record.amount
+            }
+            res.render('index', { categories, records, filter, totalAmount })
+          })
+          .catch(error => console.log('Mongoose error: showing categories(adding page)'))
+      })
+      .catch(error => console.log('Mongoose error: searching records'))
+  }
 })
 
 // Edit record details
@@ -31,7 +55,7 @@ router.get('/:id/edit', (req, res) => {
         .then((categories) => {
           res.render('edit', { record, categories })
         })
-        .catch(error => console.log('Mongoose error: edit page(category)'))
+        .catch(error => console.log('Mongoose error: showing categories(adding page)'))
     })
     .catch(error => console.log('Mongoose error: finding record id'))
 })
@@ -44,7 +68,7 @@ router.put('/:id', (req, res) => {
       return record.save()
     })
     .then(() => res.redirect('/'))
-    .catch(error => console.log('Mongoose error: edit submit'))
+    .catch(error => console.log('Mongoose error: submitting edit'))
 })
 
 // Delete record
@@ -55,6 +79,7 @@ router.delete('/:id', (req, res) => {
       record.remove()
     })
     .then(() => res.redirect('/'))
-    .catch(error => console.log('Mongoose error: delete'))
+    .catch(error => console.log('Mongoose error: deleting record'))
 })
+
 module.exports = router

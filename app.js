@@ -17,6 +17,10 @@ app.use(methodOverride('_method'))
 
 require('./config/mongoose')
 
+// Registered helpers
+require('./utils/isMatched')
+require('./utils/mapIcons')
+
 // Router setting
 const routes = require('./routes')
 app.use(routes)

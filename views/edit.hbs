@@ -20,9 +20,8 @@
       <div class="col">類別* :</div>
       <div class="col">
         <select name="category">
-          <option value="">請選擇類別</option>
           {{#each categories}}
-          <option>{{this.name}}</option>
+          <option value="{{this.name}}" {{isMatched this.name ../record.category}}>{{this.name}}</option>
           {{/each}}
         </select>
       </div>

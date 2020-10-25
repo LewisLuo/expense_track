@@ -3,6 +3,7 @@ const router = express.Router()
 
 const Record = require('../../models/record')
 const Category = require('../../models/category')
+const category = require('../../models/category')
 
 // Add new record
 router.get('/new', (req, res) => {
@@ -21,13 +22,15 @@ router.post('/', (req, res) => {
 })
 
 //filter records
-router.get('/filter', (req, res) => {
+router.get('/', (req, res) => {
   const filter = req.query.category
+
   if (filter === '顯示全部') {
     res.redirect('/')
   } else {
     Record.find({ category: [filter] })
       .lean()
+      .sort({ 'date': 'desc' })
       .then((records) => {
         Category.find()
           .lean()

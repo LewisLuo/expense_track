@@ -6,8 +6,12 @@ const Category = require('../../models/category')
 
 // Home page
 router.get('/', (req, res) => {
+  if (req.query.sort) {
+    dateSort = req.query.sort
+  }
   Record.find()
     .lean()
+    .sort({ 'date': 'desc' })
     .then((records) => {
       Category.find()
         .lean()
